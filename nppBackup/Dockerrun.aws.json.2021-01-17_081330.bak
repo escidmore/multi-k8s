@@ -27,7 +27,7 @@
       "image": "escidmore/multi-nginx",
       "hostname": "nginx",
       "essential": true,
-      "portMappings": [
+      "postMappings": [
         {
           "hostPort": 80,
           "containerPort": 80
