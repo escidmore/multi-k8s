@@ -25,6 +25,7 @@
     {
       "name": "nginx",
       "image": "escidmore/multi-nginx",
+      "hostname": "nginx",
       "essential": true,
       "memory": 128,
       "postMappings": [
