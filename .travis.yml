@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t escidmore/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true escidmore/react-test npm test
+
+after_success:
+  - docker build -t escidmore/multi-client ./client
+  - docker build -t escidmore/multi-nginx ./nginx
+  - docker build -t escidmore/multi-server ./server
+  - docker build -t escidmore/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push escidmore/multi-client
+  - docker push escidmore/multi-nginx
+  - docker push escidmore/multi-server
+  - docker push escidmore/multi-worker
